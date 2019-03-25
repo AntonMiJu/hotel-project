@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Objects;
 
@@ -11,6 +12,7 @@ public class Room extends GeneralClass{
     private boolean petsAllowed;
     private Date dateAvailableFrom;
     private Hotel hotel;
+    SimpleDateFormat format=new SimpleDateFormat("dd-mm-yyyy");
 
     public Room(long id, int numberOfGuests, double price, boolean breakfastIncluded, boolean petsAllowed, Date dateAvailableFrom, Hotel hotel) {
         this.id = id;
@@ -66,6 +68,6 @@ public class Room extends GeneralClass{
 
     @Override
     public String toString() {
-        return id + "," + numberOfGuests + "," + price + "," + breakfastIncluded + "," + petsAllowed + "," + dateAvailableFrom + "," + hotel.getId();
+        return id + "," + numberOfGuests + "," + price + "," + breakfastIncluded + "," + petsAllowed + "," + format.format(dateAvailableFrom) + "," + hotel.getId();
     }
 }

@@ -15,10 +15,6 @@ public class RoomController {
         roomService.addRoom(room);
     }
 
-    public Room findRoomById(long id) throws Exception{
-        return roomService.findRoomById(id);
-    }
-
     public void deleteRoom(long id) throws Exception {
         userController.validateLoginAdmin();
         roomService.deleteRoom(id);

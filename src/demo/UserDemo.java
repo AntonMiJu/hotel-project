@@ -60,6 +60,7 @@ public class UserDemo {
         System.out.println("5. Book room");
         System.out.println("6. Cancel booking");
         System.out.println("0. To end program");
+        System.out.println();
     }
 
     private static void register() throws Exception{
@@ -67,6 +68,8 @@ public class UserDemo {
         System.out.println("Write your user name: "); String registerUserName = sc.next();
         System.out.println("Write your user password: "); String registerPassword = sc.next();
         userController.registerUser(new User(registerUserName,registerPassword));
+        System.out.println("Registered user with " + registerUserName + " user name.");
+        System.out.println();
     }
 
     private static void login() throws Exception{
@@ -74,11 +77,13 @@ public class UserDemo {
         System.out.println("Write your user name: "); String userName = sc.next();
         System.out.println("Write your user password: "); String password = sc.next();
         userController.login(userName,password);
+        System.out.println();
     }
 
     private static void logout(){
         userController.logout();
         System.out.println("Logout is completed.");
+        System.out.println();
     }
 
     private static void findRooms() throws Exception{
@@ -90,9 +95,12 @@ public class UserDemo {
         System.out.println("From which date (write in dd-mm-yyyy format): "); String date = sc.next(); Date dateFrom = format.parse(date);
         System.out.println("Write country: "); String country = sc.next();
         System.out.println("Write city: "); String city = sc.next();
+        System.out.println();
+        System.out.println("List of rooms that confirm your filter: ");
         for (Room el : roomController.findRooms(new Filter(numberOfGuests,breakfast,pets,dateFrom,country,city))){
             System.out.println(el.toString());
         }
+        System.out.println();
     }
 
     private static void bookRoom() throws Exception{
@@ -103,6 +111,7 @@ public class UserDemo {
         System.out.println("Write for which days you want book room: "); int days = Integer.parseInt(sc.next());
         orderController.bookRoom(roomId,dateFrom,days);
         System.out.println("You book room with "+ roomId + " id");
+        System.out.println();
     }
 
     private static void cancelBooking() throws Exception{
@@ -110,6 +119,7 @@ public class UserDemo {
         System.out.println("Write room id for which you want cancel booking: "); long roomId = Long.parseLong(sc.next());
         orderController.cancelReservation(roomId);
         System.out.println("You cancel booking room with "+ roomId + " id");
+        System.out.println();
     }
 
     private static void endProgram(){

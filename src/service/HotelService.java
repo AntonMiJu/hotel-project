@@ -12,30 +12,12 @@ public class HotelService {
         hotelRepository.addHotel(hotel);
     }
 
-    public void deleteHotel(long id) throws Exception{
+    public void deleteHotel(long id) {
         roomRepository.deleteRoomsByHotel(id);
         hotelRepository.deleteHotel(id);
     }
 
-    public Hotel findHotelByName(String name) throws Exception{
-        Hotel[] hotels = (Hotel[]) hotelRepository.readFile().toArray();
-        for (Hotel el : hotels){
-            if (el.getName().equals(name))
-                return el;
-        }
-        return null;
-    }
-
-    public Hotel findHotelByCity(String city) throws Exception{
-        Hotel[] hotels = (Hotel[]) hotelRepository.readFile().toArray();
-        for (Hotel el : hotels){
-            if (el.getCity().equals(city))
-                return el;
-        }
-        return null;
-    }
-
-    public Hotel findHotelById(long id) throws Exception{
+    public Hotel findHotelById(long id) {
         Hotel[] hotels = (Hotel[]) hotelRepository.readFile().toArray();
         for (Hotel el : hotels){
             if (el.getId() == id)

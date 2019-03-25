@@ -12,10 +12,6 @@ public class UserController {
         return userService.registerUser(user);
     }
 
-    public User findUserById(long id) throws Exception {
-        return userService.findUserById(id);
-    }
-
     public void login(String userName, String password) throws Exception {
         userService.login(userName, password);
     }
@@ -30,7 +26,7 @@ public class UserController {
     }
 
     public void validateLoginAdmin() throws Exception{
-        if (currentUser == null || !currentUser.getUserType().equals(UserType.valueOf("ADMIN")))
+        if (currentUser == null || !(currentUser.getUserType().equals(UserType.valueOf("ADMIN"))))
             throw new Exception("You must have UserType = ADMIN");
     }
 }

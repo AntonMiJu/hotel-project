@@ -12,7 +12,7 @@ public class OrderRepository extends GeneralRepository<Order> {
     private UserRepository userRepository = new UserRepository();
     private RoomRepository roomRepository = new RoomRepository();
 
-    public ArrayList<Order> readFile() throws Exception{
+    public ArrayList<Order> readFile() {
         return readFromFile();
     }
 
@@ -25,7 +25,7 @@ public class OrderRepository extends GeneralRepository<Order> {
     }
 
     @Override
-    public Order map(String str) throws Exception{
+    public Order map(String str) {
         String[] array = str.split(",");
         User user = userRepository.findUserById(Long.parseLong(array[1].trim()));
         Room room = roomRepository.findRoomById(Long.parseLong(array[2].trim()));

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class UserRepository extends GeneralRepository<User> {
     private String path = "/home/anton/UserDB.txt";
 
-    public ArrayList<User> readFile() throws Exception{
+    public ArrayList<User> readFile() {
         return readFromFile();
     }
 
@@ -16,7 +16,7 @@ public class UserRepository extends GeneralRepository<User> {
         return addObject(user);
     }
 
-    public User findUserById(long id) throws Exception{
+    public User findUserById(long id) {
         for (User el : readFile()){
             if (el.getId() == id)
                 return el;
@@ -25,6 +25,8 @@ public class UserRepository extends GeneralRepository<User> {
     }
     @Override
     public User map(String str) {
+        if (str.trim().equals("") )
+            return null;
         String[] array = str.split(",");
         return new User(Long.parseLong(array[0].trim()),array[1].trim(),array[2].trim(),UserType.valueOf(array[3].trim()));
     }

@@ -9,7 +9,7 @@ public abstract class GeneralRepository<T extends GeneralClass> {
     private String path;
 
 
-    public ArrayList<T> readFromFile() throws Exception{
+    public ArrayList<T> readFromFile() {
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             ArrayList<T> objects = new ArrayList<>();
             String line;
@@ -27,8 +27,8 @@ public abstract class GeneralRepository<T extends GeneralClass> {
 
     public T addObject(T t) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))) {
-            bufferedWriter.append("\n");
             bufferedWriter.append(t.toString());
+            bufferedWriter.append("\n");
             return t;
         } catch (IOException e) {
             System.err.println("Can't write to file" + path);
@@ -36,27 +36,21 @@ public abstract class GeneralRepository<T extends GeneralClass> {
         return null;
     }
 
-    public void deleteObject(long id) throws Exception{
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
+    public void deleteObject(long id) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
             bw.append(deleteObjectFromString(id));
         } catch (IOException e) {
             System.err.println("Writing to file " + path + " failed");
         }
     }
 
-    private StringBuffer deleteObjectFromString(long id) throws Exception{
+    private StringBuffer deleteObjectFromString(long id) {
         StringBuffer res = new StringBuffer();
-        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                if (!line.equals(findObjectById(id).toString())){
-                    res.append(line);
-                    res.append("\n");
-                }
+        for (T el : readFromFile()) {
+            if (el.getId() != id) {
+                res.append(el.toString());
+                res.append("\n");
             }
-            res.replace(res.length() - 1, res.length(), "");
-        } catch (IOException e) {
-            System.out.println("Reading from file " + path + " failed");
         }
         return res;
     }
@@ -81,21 +75,20 @@ public abstract class GeneralRepository<T extends GeneralClass> {
                     res.append("\n");
                 }
             }
-            res.replace(res.length() - 1, res.length(), "");
         } catch (IOException e) {
             System.out.println("Deleting from file " + path + " failed");
         }
         return res;
     }
 
-    public abstract T map(String str) throws Exception;
+    public abstract T map(String str);
 
     public void setPath(String path) {
         this.path = path;
     }
 
-    public T findObjectById(long id) throws Exception{
-        for (T el : readFromFile()){
+    public T findObjectById(long id) {
+        for (T el : readFromFile()) {
             if (el.getId() == id)
                 return el;
         }
