@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 public class HotelRepository extends GeneralRepository<Hotel> {
     private String path = "/home/anton/HotelDB.txt";
-    private RoomRepository roomRepository = new RoomRepository();
-
     public ArrayList<Hotel> readFile() throws Exception{
         return readFromFile();
     }
@@ -17,7 +15,6 @@ public class HotelRepository extends GeneralRepository<Hotel> {
     }
 
     public void deleteHotel(long id) throws Exception{
-        roomRepository.deleteRoomsByHotel(id);
         deleteObject(id);
     }
 
@@ -27,8 +24,7 @@ public class HotelRepository extends GeneralRepository<Hotel> {
         return new Hotel(Long.parseLong(array[0].trim()), array[1].trim(), array[2].trim(), array[3].trim(), array[4].trim());
     }
 
-    @Override
-    public void setPath(String path) {
-        super.setPath(path);
+    public HotelRepository() {
+        setPath(path);
     }
 }

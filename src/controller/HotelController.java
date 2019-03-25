@@ -7,12 +7,12 @@ public class HotelController {
     private UserController userController = new UserController();
     private HotelService hotelService = new HotelService();
 
-    public void addHotel(Hotel hotel) throws Exception {
+    public void addHotel(Hotel hotel) throws Exception{
         userController.validateLoginAdmin();
         hotelService.addHotel(hotel);
     }
 
-    public Hotel findHotelByName(String name) throws Exception {
+    public Hotel findHotelByName(String name) throws Exception{
         userController.validateLogin();
         return hotelService.findHotelByName(name);
     }

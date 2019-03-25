@@ -8,7 +8,6 @@ public class UserController {
 
     public static User currentUser = null;
 
-
     public User registerUser(User user) throws Exception{
         return userService.registerUser(user);
     }
@@ -33,9 +32,5 @@ public class UserController {
     public void validateLoginAdmin() throws Exception{
         if (currentUser == null || !currentUser.getUserType().equals(UserType.valueOf("ADMIN")))
             throw new Exception("You must have UserType = ADMIN");
-    }
-
-    public long getCurrentUserId(){
-        return currentUser.getId();
     }
 }

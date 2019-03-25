@@ -10,11 +10,11 @@ public class OrderController {
 
     public void cancelReservation(long roomId) throws Exception {
         userController.validateLogin();
-        orderService.cancelReservation(roomId, userController.currentUser.getId());
+        orderService.cancelReservation(roomId, UserController.currentUser.getId());
     }
 
     public void bookRoom(long roomId, Date dateFrom, int days) throws Exception {
         userController.validateLogin();
-        orderService.bookRoom(roomId, userController.currentUser.getId(),dateFrom, days);
+        orderService.bookRoom(roomId, UserController.currentUser.getId(),dateFrom, days);
     }
 }

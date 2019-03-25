@@ -1,7 +1,5 @@
 package service;
 
-import controller.RoomController;
-import controller.UserController;
 import model.Order;
 import model.Room;
 import repository.OrderRepository;
@@ -12,9 +10,9 @@ import java.util.Date;
 
 public class OrderService {
     private OrderRepository orderRepository = new OrderRepository();
-    private RoomController roomController = new RoomController();
     private RoomRepository roomRepository = new RoomRepository();
-    private UserController userController = new UserController();
+    private RoomService roomService = new RoomService();
+    private UserService userService = new UserService();
 
     public void cancelReservation(long roomId, long userId) throws Exception{
         Date availableFrom = null;
@@ -23,7 +21,7 @@ public class OrderService {
             if (el.getRoom().getId() == roomId && el.getUser().getId()==userId)
                 availableFrom = el.getDateFrom();
         }
-        chRoom = roomController.findRoomById(roomId);
+        chRoom = roomService.findRoomById(roomId);
         chRoom.setDateAvailableFrom(availableFrom);
         roomRepository.deleteRoom(roomId);
         roomRepository.addRoom(chRoom);
@@ -35,10 +33,10 @@ public class OrderService {
         Calendar cal = Calendar.getInstance();
         cal.setTime(dateFrom);
         cal.add(Calendar.DATE, days);
-        chRoom = roomController.findRoomById(roomId);
+        chRoom = roomService.findRoomById(roomId);
         chRoom.setDateAvailableFrom(cal.getTime());
         roomRepository.deleteRoom(roomId);
         roomRepository.addRoom(chRoom);
-        orderRepository.writeFile(new Order(roomController.findRoomById(roomId).hashCode(),userController.findUserById(userId),roomController.findRoomById(roomId),roomController.findRoomById(roomId).getDateAvailableFrom(),cal.getTime(),roomController.findRoomById(roomId).getPrice()));
+        orderRepository.writeFile(new Order(roomService.findRoomById(roomId).hashCode(),userService.findUserById(userId),roomService.findRoomById(roomId),roomService.findRoomById(roomId).getDateAvailableFrom(),cal.getTime(),roomService.findRoomById(roomId).getPrice()));
     }
 }

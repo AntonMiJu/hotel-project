@@ -18,18 +18,12 @@ public class RoomService {
     }
 
     public Room findRoomById(long id) throws Exception{
-        Room[] rooms = (Room[]) roomRepository.readFile().toArray();
-        for (Room el : rooms){
-            if (el.getId() == id)
-                return el;
-        }
-        return null;
+        return roomRepository.findRoomById(id);
     }
 
     public ArrayList<Room> findRooms(Filter filter) throws Exception{
         ArrayList<Room> res = new ArrayList<>();
-        Room[] rooms = (Room[]) roomRepository.readFile().toArray();
-        for (Room el : rooms){
+        for (Room el : roomRepository.readFile()){
             if (el.getNumberOfGuests() == filter.getNumberOfGuests() && el.isBreakfastIncluded() == filter.isBreakfastIncluded() && el.isPetsAllowed() == filter.isPetsAllowed() && el.getDateAvailableFrom().before(filter.getDateAvailableFrom()) && el.getHotel().getCountry().equals(filter.getCountry()) && el.getHotel().getCity().equals(filter.getCity()))
                 res.add(el);
         }

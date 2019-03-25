@@ -6,11 +6,9 @@ import repository.UserRepository;
 
 public class UserService {
     private UserRepository userRepository = new UserRepository();
-//    private UserController userController = new UserController();
 
     public User registerUser(User user) throws Exception{
-        User[] users = (User[]) userRepository.readFile().toArray();
-        for (User el : users){
+        for (User el : userRepository.readFile()){
             if (el.getUserName().equals(user.getUserName())){
                 System.out.println("User name is already exist.");
                 return null;
@@ -32,11 +30,6 @@ public class UserService {
     }
 
     public User findUserById(long id) throws Exception{
-        User[] users = (User[]) userRepository.readFile().toArray();
-        for (User el : users){
-            if (el.getId() == id)
-                return el;
-        }
-        return null;
+        return userRepository.findUserById(id);
     }
 }

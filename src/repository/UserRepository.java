@@ -16,6 +16,13 @@ public class UserRepository extends GeneralRepository<User> {
         return addObject(user);
     }
 
+    public User findUserById(long id) throws Exception{
+        for (User el : readFile()){
+            if (el.getId() == id)
+                return el;
+        }
+        return null;
+    }
     @Override
     public User map(String str) {
         String[] array = str.split(",");
