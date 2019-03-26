@@ -5,6 +5,8 @@ import model.Room;
 import model.User;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class OrderRepository extends GeneralRepository<Order> {
@@ -26,10 +28,16 @@ public class OrderRepository extends GeneralRepository<Order> {
 
     @Override
     public Order map(String str) {
-        String[] array = str.split(",");
-        User user = userRepository.findUserById(Long.parseLong(array[1].trim()));
-        Room room = roomRepository.findRoomById(Long.parseLong(array[2].trim()));
-        return new Order(Long.parseLong(array[0].trim()), user, room, Date.valueOf(array[3].trim()), Date.valueOf(array[4].trim()), Double.parseDouble(array[5].trim()));
+        try {
+            SimpleDateFormat format=new SimpleDateFormat("dd-mm-yyyy");
+            String[] array = str.split(",");
+            User user = userRepository.findUserById(Long.parseLong(array[1].trim()));
+            Room room = roomRepository.findRoomById(Long.parseLong(array[2].trim()));
+            return new Order(Long.parseLong(array[0].trim()), user, room, format.parse(array[3].trim()), format.parse(array[4].trim()), Double.parseDouble(array[5].trim()));
+        } catch (ParseException e){
+            System.err.println(e.getMessage());
+        }
+        return null;
     }
 
     public OrderRepository() {

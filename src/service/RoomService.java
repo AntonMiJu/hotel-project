@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class RoomService {
     private RoomRepository roomRepository = new RoomRepository();
 
-    public void addRoom(Room room){
+    public void addRoom(Room room) {
         roomRepository.addRoom(room);
     }
 
@@ -23,7 +23,7 @@ public class RoomService {
 
     public ArrayList<Room> findRooms(Filter filter) {
         ArrayList<Room> res = new ArrayList<>();
-        for (Room el : roomRepository.readFile()){
+        for (Room el : roomRepository.readFile()) {
             if (el.getNumberOfGuests() == filter.getNumberOfGuests() && el.isBreakfastIncluded() == filter.isBreakfastIncluded() && el.isPetsAllowed() == filter.isPetsAllowed() && el.getDateAvailableFrom().before(filter.getDateAvailableFrom()) && el.getHotel().getCountry().equals(filter.getCountry()) && el.getHotel().getCity().equals(filter.getCity()))
                 res.add(el);
         }

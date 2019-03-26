@@ -27,8 +27,10 @@ public abstract class GeneralRepository<T extends GeneralClass> {
 
     public T addObject(T t) {
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(path, true))) {
+            File file = new File(path);
+            if (file.length() != 0)
+                bufferedWriter.append("\n");
             bufferedWriter.append(t.toString());
-            bufferedWriter.append("\n");
             return t;
         } catch (IOException e) {
             System.err.println("Can't write to file" + path);
@@ -48,8 +50,9 @@ public abstract class GeneralRepository<T extends GeneralClass> {
         StringBuffer res = new StringBuffer();
         for (T el : readFromFile()) {
             if (el.getId() != id) {
+                if (res.length() != 0)
+                    res.append("\n");
                 res.append(el.toString());
-                res.append("\n");
             }
         }
         return res;
@@ -71,8 +74,9 @@ public abstract class GeneralRepository<T extends GeneralClass> {
             while ((line = br.readLine()) != null) {
                 array = line.split(",");
                 if (Long.parseLong(array[1]) != userId || Long.parseLong(array[2]) != roomId) {
+                    if (res.length() != 0)
+                        res.append("\n");
                     res.append(line);
-                    res.append("\n");
                 }
             }
         } catch (IOException e) {

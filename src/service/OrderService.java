@@ -14,7 +14,7 @@ public class OrderService {
     private RoomService roomService = new RoomService();
     private UserService userService = new UserService();
 
-    public void cancelReservation(long roomId, long userId) throws Exception {
+    public void cancelReservation(long roomId, long userId) {
         Date availableFrom = null;
         Room chRoom;
         for (Order el : orderRepository.readFile()) {
@@ -28,7 +28,7 @@ public class OrderService {
         orderRepository.cancelReservation(roomId, userId);
     }
 
-    public void bookRoom(long roomId, long userId, Date dateFrom, int days) throws Exception {
+    public void bookRoom(long roomId, long userId, Date dateFrom, int days) {
         Room chRoom;
         Calendar cal = Calendar.getInstance();
         cal.setTime(dateFrom);
@@ -36,8 +36,8 @@ public class OrderService {
         Date date = cal.getTime();
         chRoom = roomService.findRoomById(roomId);
         chRoom.setDateAvailableFrom(cal.getTime());
+        orderRepository.writeFile(new Order(roomService.findRoomById(roomId).hashCode(), userService.findUserById(userId), roomService.findRoomById(roomId), roomService.findRoomById(roomId).getDateAvailableFrom(), date, roomService.findRoomById(roomId).getPrice()));
         roomRepository.deleteRoom(roomId);
         roomRepository.addRoom(chRoom);
-        orderRepository.writeFile(new Order(roomService.findRoomById(roomId).hashCode(), userService.findUserById(userId), roomService.findRoomById(roomId), roomService.findRoomById(roomId).getDateAvailableFrom(), date, roomService.findRoomById(roomId).getPrice()));
     }
 }

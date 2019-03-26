@@ -25,8 +25,6 @@ public class UserRepository extends GeneralRepository<User> {
     }
     @Override
     public User map(String str) {
-        if (str.trim().equals("") )
-            return null;
         String[] array = str.split(",");
         return new User(Long.parseLong(array[0].trim()),array[1].trim(),array[2].trim(),UserType.valueOf(array[3].trim()));
     }

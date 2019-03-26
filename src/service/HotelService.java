@@ -18,8 +18,7 @@ public class HotelService {
     }
 
     public Hotel findHotelById(long id) {
-        Hotel[] hotels = (Hotel[]) hotelRepository.readFile().toArray();
-        for (Hotel el : hotels){
+        for (Hotel el : hotelRepository.readFile()) {
             if (el.getId() == id)
                 return el;
         }

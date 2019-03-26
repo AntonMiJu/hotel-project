@@ -10,7 +10,7 @@ public class UserService {
 
     public User registerUser(User user) throws Exception {
         for (User el : userRepository.readFile()) {
-            if (el != null && el.getUserName().equals(user.getUserName())) {
+            if (el.getUserName().equals(user.getUserName())) {
                 throw new Exception("User name is already exist.");
             }
         }
@@ -22,7 +22,7 @@ public class UserService {
             throw new Exception("User with id " + UserController.currentUser.getId() + " already signed");
         }
         for (User el : userRepository.readFile()) {
-            if (el != null && el.getUserName().equals(userName) && el.getPassword().equals(password)) {
+            if (el.getUserName().equals(userName) && el.getPassword().equals(password)) {
                 UserController.currentUser = el;
                 System.out.println("Login completed successfully");
             }
