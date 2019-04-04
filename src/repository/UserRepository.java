@@ -29,6 +29,11 @@ public class UserRepository extends GeneralRepository<User> {
         return new User(Long.parseLong(array[0].trim()),array[1].trim(),array[2].trim(),UserType.valueOf(array[3].trim()));
     }
 
+    @Override
+    public String reverseMap(User user) {
+        return user.getId() + "," + user.getUserName() + "," + user.getPassword() + "," + user.getUserType();
+    }
+
     public UserRepository() {
         setPath(path);
     }

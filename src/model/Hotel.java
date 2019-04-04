@@ -18,7 +18,7 @@ public class Hotel extends GeneralClass {
     }
 
     public Hotel(String name, String country, String city, String street) {
-        this.id = Objects.hash(name);
+        this.id = Math.abs(Objects.hash(name,country,city,street));
         this.name = name;
         this.country = country;
         this.city = city;
@@ -47,6 +47,10 @@ public class Hotel extends GeneralClass {
 
     @Override
     public String toString() {
-        return id + "," + name + "," + country + "," + city + "," + street;
+        return  "id = " + id +
+                ", name = '" + name + '\'' +
+                ", country = '" + country + '\'' +
+                ", city = '" + city + '\'' +
+                ", street = '" + street + '\'';
     }
 }

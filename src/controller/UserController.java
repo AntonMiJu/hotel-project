@@ -26,7 +26,8 @@ public class UserController {
     }
 
     public void validateLoginAdmin() throws Exception{
-        if (currentUser == null || !(currentUser.getUserType().equals(UserType.valueOf("ADMIN"))))
-            throw new Exception("You must have UserType = ADMIN");
+        validateLogin();
+        if (!(currentUser.getUserType().toString().equals("ADMIN")))
+            throw new Exception("You must have UserType = ADMIN"+currentUser.getUserType());
     }
 }

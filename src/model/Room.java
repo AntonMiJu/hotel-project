@@ -11,27 +11,27 @@ public class Room extends GeneralClass{
     private boolean breakfastIncluded;
     private boolean petsAllowed;
     private Date dateAvailableFrom;
-    private Hotel hotel;
+    private int hotelId;
     SimpleDateFormat format=new SimpleDateFormat("dd-mm-yyyy");
 
-    public Room(long id, int numberOfGuests, double price, boolean breakfastIncluded, boolean petsAllowed, Date dateAvailableFrom, Hotel hotel) {
+    public Room(long id, int numberOfGuests, double price, boolean breakfastIncluded, boolean petsAllowed, Date dateAvailableFrom, int hotelId) {
         this.id = id;
         this.numberOfGuests = numberOfGuests;
         this.price = price;
         this.breakfastIncluded = breakfastIncluded;
         this.petsAllowed = petsAllowed;
         this.dateAvailableFrom = dateAvailableFrom;
-        this.hotel = hotel;
+        this.hotelId = hotelId;
     }
 
-    public Room(int numberOfGuests, double price, boolean breakfastIncluded, boolean petsAllowed, Date dateAvailableFrom, Hotel hotel) {
-        this.id = Objects.hash(hotel);
+    public Room(int numberOfGuests, double price, boolean breakfastIncluded, boolean petsAllowed, Date dateAvailableFrom, int hotelId) {
+        this.id = Math.abs(Objects.hash(numberOfGuests,price,breakfastIncluded,petsAllowed,dateAvailableFrom,hotelId));
         this.numberOfGuests = numberOfGuests;
         this.price = price;
         this.breakfastIncluded = breakfastIncluded;
         this.petsAllowed = petsAllowed;
         this.dateAvailableFrom = dateAvailableFrom;
-        this.hotel = hotel;
+        this.hotelId = hotelId;
     }
 
     public void setDateAvailableFrom(Date dateAvailableFrom) {
@@ -62,12 +62,18 @@ public class Room extends GeneralClass{
         return dateAvailableFrom;
     }
 
-    public Hotel getHotel() {
-        return hotel;
+    public int getHotelId() {
+        return hotelId;
     }
 
     @Override
     public String toString() {
-        return id + "," + numberOfGuests + "," + price + "," + breakfastIncluded + "," + petsAllowed + "," + format.format(dateAvailableFrom) + "," + hotel.getId();
+        return  "id = " + id +
+                ", numberOfGuests = " + numberOfGuests +
+                ", price = " + price +
+                ", breakfastIncluded = " + breakfastIncluded +
+                ", petsAllowed = " + petsAllowed +
+                ", dateAvailableFrom = " + format.format(dateAvailableFrom) +
+                ", hotelId = " + hotelId;
     }
 }

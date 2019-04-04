@@ -30,7 +30,7 @@ public abstract class GeneralRepository<T extends GeneralClass> {
             File file = new File(path);
             if (file.length() != 0)
                 bufferedWriter.append("\n");
-            bufferedWriter.append(t.toString());
+            bufferedWriter.append(reverseMap(t));
             return t;
         } catch (IOException e) {
             System.err.println("Can't write to file" + path);
@@ -39,8 +39,9 @@ public abstract class GeneralRepository<T extends GeneralClass> {
     }
 
     public void deleteObject(long id) {
+        StringBuffer stringBuffer = deleteObjectFromString(id);
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
-            bw.append(deleteObjectFromString(id));
+            bw.append(stringBuffer);
         } catch (IOException e) {
             System.err.println("Writing to file " + path + " failed");
         }
@@ -52,15 +53,16 @@ public abstract class GeneralRepository<T extends GeneralClass> {
             if (el.getId() != id) {
                 if (res.length() != 0)
                     res.append("\n");
-                res.append(el.toString());
+                res.append(reverseMap(el));
             }
         }
         return res;
     }
 
     public void deleteObject(long roomId, long userId) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
-            bw.append(deleteObjectFromString(roomId, userId));
+        StringBuffer stringBuffer = deleteObjectFromString(roomId, userId);
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
+            bw.append(stringBuffer);
         } catch (IOException e) {
             System.err.println("Deleting from file " + path + " failed");
         }
@@ -87,15 +89,9 @@ public abstract class GeneralRepository<T extends GeneralClass> {
 
     public abstract T map(String str);
 
+    public abstract String reverseMap(T t);
+
     public void setPath(String path) {
         this.path = path;
-    }
-
-    public T findObjectById(long id) {
-        for (T el : readFromFile()) {
-            if (el.getId() == id)
-                return el;
-        }
-        return null;
     }
 }

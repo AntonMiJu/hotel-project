@@ -16,12 +16,4 @@ public class HotelService {
         roomRepository.deleteRoomsByHotel(id);
         hotelRepository.deleteHotel(id);
     }
-
-    public Hotel findHotelById(long id) {
-        for (Hotel el : hotelRepository.readFile()) {
-            if (el.getId() == id)
-                return el;
-        }
-        return null;
-    }
 }

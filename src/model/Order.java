@@ -10,7 +10,7 @@ public class Order extends GeneralClass{
     private Date dateFrom;
     private Date dateTo;
     private double moneyPaid;
-    SimpleDateFormat format=new SimpleDateFormat("dd-mm-yyyy");
+    private SimpleDateFormat format=new SimpleDateFormat("dd-mm-yyyy");
 
     public Order(long id, User user, Room room, Date dateFrom, Date dateTo, double moneyPaid) {
         this.id = id;
@@ -46,6 +46,11 @@ public class Order extends GeneralClass{
 
     @Override
     public String toString() {
-        return id + "," + user.getId() + "," + room.getId() + "," + format.format(dateFrom) + "," + format.format(dateTo) + "," + moneyPaid;
+        return  "id = " + id +
+                ", userId = " + user.getId() +
+                ", roomId = " + room.getId() +
+                ", dateFrom = " + format.format(dateFrom) +
+                ", dateTo = " + format.format(dateTo) +
+                ", moneyPaid = " + moneyPaid;
     }
 }

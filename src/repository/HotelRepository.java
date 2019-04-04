@@ -25,6 +25,11 @@ public class HotelRepository extends GeneralRepository<Hotel> {
         return new Hotel(Long.parseLong(array[0].trim()), array[1].trim(), array[2].trim(), array[3].trim(), array[4].trim());
     }
 
+    @Override
+    public String reverseMap(Hotel hotel) {
+        return hotel.getId() + "," + hotel.getName() + "," + hotel.getCountry() + "," + hotel.getCity() + "," + hotel.getStreet();
+    }
+
     public HotelRepository() {
         setPath(path);
     }

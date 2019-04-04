@@ -20,12 +20,12 @@ public class UserDemo {
         menu();
     }
 
-    private static void menu() throws Exception{
+    private static void menu() throws Exception {
         while (true) {
             printFunctions();
             Scanner sc = new Scanner(System.in);
             String n = sc.next();
-            switch (n){
+            switch (n) {
                 case "0":
                     endProgram();
                     break;
@@ -51,7 +51,8 @@ public class UserDemo {
         }
     }
 
-    private static void printFunctions(){
+    private static void printFunctions() {
+        System.out.println("To use any function you must login.");
         System.out.println("Write number of function which you want to use: ");
         System.out.println("1. Register user");
         System.out.println("2. Login");
@@ -63,66 +64,78 @@ public class UserDemo {
         System.out.println();
     }
 
-    private static void register() throws Exception{
+    private static void register() throws Exception {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Write your user name: "); String registerUserName = sc.next();
-        System.out.println("Write your user password: "); String registerPassword = sc.next();
-        userController.registerUser(new User(registerUserName,registerPassword));
+        System.out.println("Write your user name: ");
+        String registerUserName = sc.next();
+        System.out.println("Write your user password: ");
+        String registerPassword = sc.next();
+        userController.registerUser(new User(registerUserName, registerPassword));
         System.out.println("Registered user with " + registerUserName + " user name.");
         System.out.println();
     }
 
-    private static void login() throws Exception{
+    private static void login() throws Exception {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Write your user name: "); String userName = sc.next();
-        System.out.println("Write your user password: "); String password = sc.next();
-        userController.login(userName,password);
+        System.out.println("Write your user name: ");
+        String userName = sc.next();
+        System.out.println("Write your user password: ");
+        String password = sc.next();
+        userController.login(userName, password);
         System.out.println();
     }
 
-    private static void logout(){
+    private static void logout() {
         userController.logout();
         System.out.println("Logout is completed.");
         System.out.println();
     }
 
-    private static void findRooms() throws Exception{
+    private static void findRooms() throws Exception {
         Scanner sc = new Scanner(System.in);
-        SimpleDateFormat format=new SimpleDateFormat("dd-mm-yyyy");
-        System.out.println("Write number of guests: "); int numberOfGuests = Integer.parseInt(sc.next());
-        System.out.println("Do you need breakfast? (write true or false) : "); boolean breakfast = Boolean.parseBoolean(sc.next());
-        System.out.println("Do you have pet? (write true or false) : "); boolean pets = Boolean.parseBoolean(sc.next());
-        System.out.println("From which date (write in dd-mm-yyyy format): "); String date = sc.next(); Date dateFrom = format.parse(date);
-        System.out.println("Write country: "); String country = sc.next();
-        System.out.println("Write city: "); String city = sc.next();
+        SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+        System.out.println("Write number of guests: ");
+        int numberOfGuests = Integer.parseInt(sc.next());
+        System.out.println("Do you need breakfast? (write true or false) : ");
+        boolean breakfast = Boolean.parseBoolean(sc.next());
+        System.out.println("Do you have pet? (write true or false) : ");
+        boolean pets = Boolean.parseBoolean(sc.next());
+        System.out.println("From which date (write in dd-mm-yyyy format): ");
+        String date = sc.next();
+        Date dateFrom = format.parse(date);
         System.out.println();
         System.out.println("List of rooms that confirm your filter: ");
-        for (Room el : roomController.findRooms(new Filter(numberOfGuests,breakfast,pets,dateFrom,country,city))){
+        for (Room el : roomController.findRooms(new Filter(numberOfGuests, breakfast, pets, dateFrom))) {
             System.out.println(el.toString());
         }
         System.out.println();
     }
 
-    private static void bookRoom() throws Exception{
+    private static void bookRoom() throws Exception {
         Scanner sc = new Scanner(System.in);
-        SimpleDateFormat format=new SimpleDateFormat("dd-mm-yyyy");
-        System.out.println("Write room id which you want book: "); long roomId = Long.parseLong(sc.next());
-        System.out.println("From which date (write in dd-mm-yyyy format): "); String dateF = sc.next(); Date dateFrom = format.parse(dateF);
-        System.out.println("Write for which days you want book room: "); int days = Integer.parseInt(sc.next());
-        orderController.bookRoom(roomId,dateFrom,days);
-        System.out.println("You book room with "+ roomId + " id");
+        SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+        System.out.println("Write room id which you want book: ");
+        long roomId = Long.parseLong(sc.next());
+        System.out.println("From which date (write in dd-mm-yyyy format): ");
+        String dateF = sc.next();
+        Date dateFrom = format.parse(dateF);
+        System.out.println("Write for which days you want book room: ");
+        int days = Integer.parseInt(sc.next());
+        orderController.bookRoom(roomId, dateFrom, days);
+        System.out.println("You book room with " + roomId + " id");
         System.out.println();
     }
 
-    private static void cancelBooking() throws Exception{
+    private static void cancelBooking() throws Exception {
         Scanner sc = new Scanner(System.in);
-        System.out.println("Write room id for which you want cancel booking: "); long roomId = Long.parseLong(sc.next());
+        System.out.println("Write room id for which you want cancel booking: ");
+        long roomId = Long.parseLong(sc.next());
         orderController.cancelReservation(roomId);
-        System.out.println("You cancel booking room with "+ roomId + " id");
+        System.out.println("You cancel booking room with " + roomId + " id");
         System.out.println();
     }
 
-    private static void endProgram(){
+    private static void endProgram() {
         System.exit(0);
     }
 }

@@ -16,7 +16,7 @@ public class User extends GeneralClass{
     }
 
     public User(String userName, String password) {
-        this.id = Objects.hash(userName);
+        this.id = Math.abs(Objects.hash(userName,password));
         this.userName = userName;
         this.password = password;
         this.userType = UserType.USER;
@@ -40,6 +40,9 @@ public class User extends GeneralClass{
 
     @Override
     public String toString() {
-        return id + "," + userName + "," + password + "," + userType;
+        return  "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", userType=" + userType;
     }
 }

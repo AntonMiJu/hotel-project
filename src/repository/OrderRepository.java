@@ -4,7 +4,6 @@ import model.Order;
 import model.Room;
 import model.User;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -13,6 +12,7 @@ public class OrderRepository extends GeneralRepository<Order> {
     private String path = "/home/anton/OrderDB.txt";
     private UserRepository userRepository = new UserRepository();
     private RoomRepository roomRepository = new RoomRepository();
+    private SimpleDateFormat format=new SimpleDateFormat("dd-mm-yyyy");
 
     public ArrayList<Order> readFile() {
         return readFromFile();
@@ -38,6 +38,11 @@ public class OrderRepository extends GeneralRepository<Order> {
             System.err.println(e.getMessage());
         }
         return null;
+    }
+
+    @Override
+    public String reverseMap(Order order) {
+        return order.getId() + "," + order.getUser().getId() + "," + order.getRoom().getId() + "," + format.format(order.getDateFrom()) + "," + format.format(order.getDateTo()) + "," + order.getMoneyPaid();
     }
 
     public OrderRepository() {

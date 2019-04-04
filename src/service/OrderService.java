@@ -7,6 +7,7 @@ import repository.RoomRepository;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class OrderService {
     private OrderRepository orderRepository = new OrderRepository();
@@ -36,7 +37,7 @@ public class OrderService {
         Date date = cal.getTime();
         chRoom = roomService.findRoomById(roomId);
         chRoom.setDateAvailableFrom(cal.getTime());
-        orderRepository.writeFile(new Order(roomService.findRoomById(roomId).hashCode(), userService.findUserById(userId), roomService.findRoomById(roomId), roomService.findRoomById(roomId).getDateAvailableFrom(), date, roomService.findRoomById(roomId).getPrice()));
+        orderRepository.writeFile(new Order(Math.abs(Objects.hash(roomId, userId, dateFrom, date)), userService.findUserById(userId), roomService.findRoomById(roomId), dateFrom, date, roomService.findRoomById(roomId).getPrice()));
         roomRepository.deleteRoom(roomId);
         roomRepository.addRoom(chRoom);
     }
